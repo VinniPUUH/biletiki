@@ -1,23 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import "./App.css";
+
+import Ticket from "./ticket/ticket";
 
 function App() {
+  const [tickets, setTickets] = useState([]);
+  let id;
+
+  useEffect(() => {
+    axios
+      .get("https://front-test.beta.aviasales.ru/search")
+      .then((response) => {
+        id = response.data.searchId;
+        console.log(id);
+      })
+      .then(() => {  getTickets();})
+  }, []);
+
+  const getTickets = () => {
+    axios
+      .get("https://front-test.beta.aviasales.ru/tickets", {
+        params: {
+          searchId: id,
+        },
+      })
+      .then((response) => {
+        setTickets((prevState) => {return prevState.concat([...response.data.tickets])});
+        console.log(response.data.stop);
+        if (!response.data.stop) {
+          getTickets();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        getTickets();
+      });
+  };
+
+  console.log(tickets);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {tickets.map((ticket, ind) => {
+        return <Ticket key={ind} dataObj={ticket}></Ticket>;
+      })}
     </div>
   );
 }

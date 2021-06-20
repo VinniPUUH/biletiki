@@ -1,0 +1,32 @@
+.ticket{
+    width: 500px;
+    height: 200px;
+    padding: 30px;
+    background-color: rgb(196, 187, 187);
+    margin: 20px auto;
+}
+
+.ticket__header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ticket__header__price{
+    color: blue;
+    font-weight: 700;
+}
+
+.ticket__footer{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.ticket__footer__item{
+    margin-top: 20px;
+}
+
+.ticket__footer__item__title{
+    color: rgb(228, 228, 228);
+    display: block;
+}
