@@ -9,14 +9,16 @@ const TicketFooterItem = ({ title, text }) => {
   );
 };
 
+//NOTE можно было рендерить билет не по колонкам, а по строкам
 const Ticket = ({ dataObj }) => {
   const segments = dataObj.segments;
+  const IMG_URL = `http://pics.avs.io/99/36/${dataObj.carrier}.png`;
   return (
     <div className="ticket">
       <div className="ticket__header">
         <div className="ticket__header__price">{dataObj.price}</div>
         <div className="ticket__header__logo">
-          <img src={`http://pics.avs.io/99/36/${dataObj.carrier}.png`} alt="" />
+          <img src={IMG_URL} alt="Логотип компании-перевозчика" />
         </div>
       </div>
 
@@ -28,7 +30,7 @@ const Ticket = ({ dataObj }) => {
                 key={ind}
                 title={`${segment.origin} - ${segment.destination}`}
                 text={segment.date}
-              ></TicketFooterItem>
+              />
             );
           })}
         </div>
@@ -39,7 +41,7 @@ const Ticket = ({ dataObj }) => {
                 key={ind}
                 title={"В пути"}
                 text={segment.duration}
-              ></TicketFooterItem>
+              />
             );
           })}
         </div>
@@ -50,7 +52,7 @@ const Ticket = ({ dataObj }) => {
                 key={ind}
                 title={`${segment.stops.length} пересадки`}
                 text={segment.stops.join(", ")}
-              ></TicketFooterItem>
+              />
             );
           })}
         </div>
